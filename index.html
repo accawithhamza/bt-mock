@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACCA with Hamza – Mock Portal</title>
+<meta name="description" content="ACCA mock exams in the computer-based exam format with detailed performance analysis – by @acca.with.hamza">
+<meta name="theme-color" content="#6d1a2b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236d1a2b'/%3E%3Ctext x='32' y='42' font-family='Arial' font-weight='bold' font-size='26' fill='%23c9a227' text-anchor='middle'%3EAH%3C/text%3E%3C/svg%3E">
+<script>
+  // apply saved theme & font size before paint
+  try { var p = JSON.parse(localStorage.getItem("ah_prefs") || "{}"); document.documentElement.dataset.theme = p.theme || "light"; document.documentElement.dataset.fs = p.fs || "m"; } catch (e) {}
+</script>
+<link rel="stylesheet" href="css/style.css">
+<script src="config.js"></script>
+</head>
+<body>
+
+<!-- ===== Login / register / forgot password ===== -->
+<div id="auth" class="hide"></div>
+
+<!-- ===== Portal (dashboard, profile, history, results) ===== -->
+<div id="app" class="hide">
+  <header class="top">
+    <button class="ibtn" id="menuBtn" aria-label="Menu"></button>
+    <div class="title"><div class="logo">AH</div><span>ACCA with Hamza <span class="long">– Mock Portal</span></span></div>
+    <a class="ibtn hide-sm" id="hdrInsta" target="_blank" rel="noopener" aria-label="Instagram"></a>
+    <a class="ibtn hide-sm" id="hdrYt" target="_blank" rel="noopener" aria-label="YouTube"></a>
+    <button class="ibtn" id="setBtn" aria-label="Settings" style="width:auto;padding:0 .3rem;gap:.35rem"></button>
+  </header>
+  <main id="view"></main>
+  <!-- support chat -->
+  <button id="chatFab" class="fab"><span class="fab-ic">💬</span><span class="fab-t">Chat with Hamza</span><span id="chatBadge" class="badge-n hide">0</span></button>
+  <div id="chatBox" class="chatbox hide">
+    <div class="chat-h"><span id="chatAv"></span><div style="flex:1"><b>Chat with Hamza</b><div class="small" style="opacity:.85">Private – only you and Hamza can see this</div></div><button class="ibtn" id="chatClose" aria-label="Close">✕</button></div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-prev hide" id="chatPrev"></div>
+    <div class="chat-in"><button class="ibtn att" id="chatAtt" aria-label="Attach photo" title="Attach photo">📎</button><textarea id="chatTxt" rows="1" maxlength="2000" placeholder="Type your message…"></textarea><button class="btn" id="chatSend">Send</button></div>
+  </div>
+</div>
+<input type="file" id="chatFile" accept="image/*" class="hide">
+
+<!-- ===== Exam (CBE style – no animations) ===== -->
+<div id="scr-exam" class="cbe hide">
+  <div class="cbe-top">
+    <div><div class="ttl" id="exTitle"></div><div class="cand" id="exCand"></div></div>
+    <div class="timer" id="timer">--:--:--</div>
+  </div>
+  <div class="cbe-tool">
+    <div class="qn" id="qNum"></div>
+    <div style="display:flex;gap:.35rem;flex-wrap:wrap">
+      <button class="tbtn" id="flagBtn">⚑ Flag for review</button>
+      <button class="tbtn hide" id="formulaBtn">Formula sheet</button>
+      <button class="tbtn" id="calcBtn">Calculator</button>
+      <button class="tbtn" id="padBtn">Scratch pad</button>
+      <button class="tbtn" id="helpBtn">Help</button>
+    </div>
+  </div>
+  <div class="cbe-body" id="qBody"><div class="cbe-inner" id="qInner"></div></div>
+  <div class="cbe-foot">
+    <button class="fbtn end" id="endBtn">End exam</button>
+    <div style="display:flex;gap:.5rem">
+      <button class="fbtn" id="prevBtn">◀ Previous</button>
+      <button class="fbtn" id="navBtn">Navigator</button>
+      <button class="fbtn" id="nextBtn">Next ▶</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== Answer review ===== -->
+<div id="scr-review" class="cbe hide">
+  <div class="cbe-top">
+    <div><div class="ttl" id="rvTitle"></div><div class="cand" id="rvCand"></div></div>
+    <button class="fbtn" id="rvBack" style="min-width:0">◀ Back to analysis</button>
+  </div>
+  <div class="cbe-tool"><div class="qn" id="rvNum"></div><div class="small" id="rvTag"></div></div>
+  <div class="rv-wrap">
+    <div class="rv-side">
+      <div class="filt" id="rvFilt"></div>
+      <div class="navgrid" id="rvGrid"></div>
+      <div class="legend" style="flex-direction:column;gap:.3rem">
+        <span><i style="background:#e5f4ea;border-color:#1e7d45"></i>Correct</span>
+        <span><i style="background:#fff3dc;border-color:#a15c00"></i>Partly correct (Section B)</span>
+        <span><i style="background:#fbe9e7;border-color:#b3261e"></i>Wrong</span>
+        <span><i style="background:#eef0f4"></i>Not attempted</span>
+      </div>
+    </div>
+    <div class="cbe-body" id="rvBody"><div class="cbe-inner" id="rvInner"></div></div>
+  </div>
+  <div class="cbe-foot">
+    <span></span>
+    <div style="display:flex;gap:.5rem">
+      <button class="fbtn" id="rvPrev">◀ Previous</button>
+      <button class="fbtn" id="rvNext">Next ▶</button>
+    </div>
+  </div>
+</div>
+
+<div id="layer"></div>
+<div id="ovl"></div>
+<div id="calcPanel" class="panel hide"><div class="mh">Calculator<button data-close="calcPanel">×</button></div>
+  <div class="calc"><input class="disp" id="cDisp" readonly value="0"><div class="keys" id="cKeys"></div></div></div>
+<div id="padPanel" class="panel pad hide" style="width:320px"><div class="mh">Scratch pad<button data-close="padPanel">×</button></div>
+  <textarea id="padTxt" placeholder="Rough notes (not marked)"></textarea></div>
+<input type="file" id="photoIn" accept="image/*" class="hide">
+
+<script src="js/chat.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
