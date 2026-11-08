@@ -307,7 +307,7 @@ function goHome() {
   h += `<h1>Hi ${esc(u.name.split(" ")[0])} 👋</h1><p class="mut" style="margin-top:0">Choose a paper to start practising.</p><div class="grid g2">`;
   C.PAPERS.forEach(p => {
     const n = SES.history.filter(x => x.paper === p.code).length;
-    h += `<div class="papercard" data-paper="${p.code}"><div class="code">${p.code}</div><div style="flex:1"><b>${esc(p.name)}</b><div class="small mut">${esc(p.level)} · ${p.mocks.filter(m => m.live).length} mock(s) available</div>${n ? `<span class="pill g" style="margin-top:.3rem">${n} attempt(s)</span>` : ""}</div><span style="font-size:1.4rem;color:var(--gold)">›</span></div>`;
+    h += `<div class="papercard" data-paper="${p.code}"><div class="code">${p.code}</div><div style="flex:1"><b>${esc(p.name)}</b><div class="small mut">${esc(p.level)} · ${p.mocks.filter(m => m.live && !m.hidden).length} mock(s) available</div>${n ? `<span class="pill g" style="margin-top:.3rem">${n} attempt(s)</span>` : ""}</div><span style="font-size:1.4rem;color:var(--gold)">›</span></div>`;
   });
   (C.COMING_SOON || []).forEach(s => h += `<div class="papercard soon"><div class="code" style="background:var(--line2);color:var(--mut)">${esc(s.split(" ")[0])}</div><div><b>${esc(s.split("–")[1] || s)}</b><div class="small mut">Coming soon</div></div></div>`);
   h += `</div>${footer()}`;
@@ -382,7 +382,7 @@ async function goPaper(code) {
     <div class="stat"><b>${G.pass ?? "–"}${G.pass != null ? "%" : ""}</b><span>Pass rate</span></div></div>`;
   // mocks
   h += `<div class="sechead"><h2>Your mocks</h2><span class="small mut">${p.minutes / 60} hours · pass mark ${C.PASS_MARK}%</span></div><div class="grid g3">`;
-  p.mocks.forEach(m => {
+  p.mocks.filter(m => !m.hidden).forEach(m => {
     const att = G.hs.filter(x => x.mockKey === m.key).sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
     let st = "Not attempted yet", btns = "";
     if (!m.live) { st = "Coming soon"; btns = `<button class="btn ghost" disabled>Coming soon</button>`; }

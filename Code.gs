@@ -12,9 +12,9 @@
  *   Photos   – profile pictures
  */
 /* ====== YOUR SETTINGS ====== */
-var ADMIN_PASSWORD = "HamzaACCA@01";   // <-- set your admin panel password here (keep it secret)
-var PORTAL_URL = "https://accawithhamza.github.io/bt-mock";                 // <-- your site link, e.g. "https://yourname.github.io/bt-mock/" (used in emails)
-var ADMIN_EMAIL = "hamzafaizanwar@gmail.com";                // leave "" to use your own Google account email
+var ADMIN_PASSWORD = "CHANGE_ME";   // <-- set your admin panel password here (keep it secret)
+var PORTAL_URL = "";                 // <-- your site link, e.g. "https://yourname.github.io/bt-mock/" (used in emails)
+var ADMIN_EMAIL = "";                // leave "" to use your own Google account email
 /* =========================== */
 
 var USER_COLS = ["createdAt","userId","username","name","email","countryCode","phone","insta","examDates","lastLogin","salt","passHash","token"];
