@@ -33,11 +33,12 @@ window.CONFIG = {
         ["Section B – multi-task questions", "6 × 4 marks", 24]
       ],
       mocks: [
-        { key: "BT-1R", title: "Mock Exam 1", file: "papers/bt/mock1.js", live: true  },
-        { key: "BT-2",  title: "Mock Exam 2", file: "papers/bt/mock2.js", live: true  },
-        { key: "BT-3",  title: "Mock Exam 3", file: "papers/bt/mock3.js", live: false },
-        { key: "BT-4",  title: "Mock Exam 4", file: "papers/bt/mock4.js", live: false },
-        // old version of Mock 1 – hidden from the list, kept so earlier attempts can still be reviewed
+      { key: "BT-1R", title: "Mock Exam 1", file: "papers/bt/mock1.js", live: true  },
+{ key: "BT-2",  title: "Mock Exam 2", file: "papers/bt/mock2.js", live: true  },
+{ key: "BT-3",  title: "Mock Exam 3", file: "papers/bt/mock3.js", live: false },
+{ key: "BT-4",  title: "Mock Exam 4", file: "papers/bt/mock4.js", live: false },
+{ key: "BT-1",  title: "Mock Exam 1 (old version)", file: "papers/bt/mock1_v1.js", live: true, hidden: true }
+         // old version of Mock 1 – hidden from the list, kept so earlier attempts can still be reviewed
         { key: "BT-1",  title: "Mock Exam 1 (old version)", file: "papers/bt/mock1_v1.js", live: true, hidden: true }
       ],
       tips: [
