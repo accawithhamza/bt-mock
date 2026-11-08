@@ -549,16 +549,8 @@ async function prepMock(code, key) {
   PAPER = await ensurePaper(code); SYL = window.SYLLABUS[code];
   window.MOCKS = window.MOCKS || {};
   const m = PAPER.mocks.find(x => x.key === key);
-  if (!window.MOCKS[key]) {
-    const before = new Set(Object.keys(window.MOCKS));
-    await loadScript(m.file);
-    if (!window.MOCKS[key]) {               // key mismatch (e.g. old config.js) – use the mock this file defines
-      const added = Object.keys(window.MOCKS).find(k => !before.has(k));
-      if (added) window.MOCKS[key] = window.MOCKS[added];
-    }
-  }
+  if (!window.MOCKS[key]) await loadScript(m.file);
   MOCK = window.MOCKS[key];
-  if (!MOCK) throw new Error("This mock could not be loaded. Please refresh the page (Ctrl + F5) and try again.");
   const A = MOCK.sectionA.map((q, i) => Object.assign({ id: "A" + (i + 1), sec: "A" }, q));
   const B = (MOCK.sectionB || []).map((q, i) => Object.assign({ id: "B" + (i + 1), sec: "B" }, q));
   ITEMS = seededShuffle(A, strSeed(key)).concat(B);
