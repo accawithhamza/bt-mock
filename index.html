@@ -11,12 +11,8 @@
   // apply saved theme & font size before paint
   try { var p = JSON.parse(localStorage.getItem("ah_prefs") || "{}"); document.documentElement.dataset.theme = p.theme || "light"; document.documentElement.dataset.fs = p.fs || "m"; } catch (e) {}
 </script>
-<script>
-  // load the newest version of the site files every time (avoids old cached copies after updates)
-  var V = Date.now();
-  document.write('<link rel="stylesheet" href="css/style.css?v=' + V + '">');
-  document.write('<script src="config.js?v=' + V + '"><\/script>');
-</script>
+<link rel="stylesheet" href="css/style.css?v=3">
+<script src="config.js?v=3"></script>
 </head>
 <body>
 
@@ -108,9 +104,7 @@
   <textarea id="padTxt" placeholder="Rough notes (not marked)"></textarea></div>
 <input type="file" id="photoIn" accept="image/*" class="hide">
 
-<script>
-  document.write('<script src="js/chat.js?v=' + V + '"><\/script>');
-  document.write('<script src="js/app.js?v=' + V + '"><\/script>');
-</script>
+<script src="js/chat.js?v=3"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>
